@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+    <meta charset="utf-8">
+    <title>Blog App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+
 </head>
+
 <body>
-<h1>Home page</h1>
+
+<br>
+<br>
+
+<div class="container text main segment ui">
+<div class="ui header huge">Blog App</div>
+
+    <div class="ui top attached segment">
+        <div class="ui divided items">
+            {% for post in posts.all%}
+            <div class="item">
+                <div class="image rounded">
+                    <img src="">
+                </div>
+                <div class="content">
+                    <a class="header" href="">{{post.title}}</a>
+                    <div class="meta">
+                        <span>{{post.date}}</span>
+                    </div>
+                    <div class="description">
+                        <p>{{post.body}}<a href="">more..</a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+</div>
 
 </body>
 </html>
