@@ -1,3 +1,4 @@
 venv/
 .idea/
 myBlog/myBlog/__pycache__/
+myBlog/posts/migrations/__pycache__/
