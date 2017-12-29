@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Blog App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+
+</head>
+<body>
+
+<div class="ui grid">
+    <div class="ui main text container segment twelve wide column centered">
+        <div class="ui huge dividing header">{{post.title}}</div>
+        <div class="ui top attached">
+            <div class="item">
+                <img src="{{post.image.url}}" class="ui centered rounded image space">
+                <div class="content space">
+                    <span class="centered">Created: {{post.date}}</span>
+                </div>
+                <div class="description space">
+                    <p class="body">{{post.body}}</p>
+                </div>
+                <a href="" class="ui small grey basic button">UPDATE</a>
+                <form id="delete" method="post" action="">
+                    <button class="ui small red basic button">DELETE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
