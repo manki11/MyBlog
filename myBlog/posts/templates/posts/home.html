@@ -1,28 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "posts/base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Blog App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+{% block content%}
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
-
-</head>
-
-<body>
-<div class="ui fixed inverted menu">
-    <div class="ui container">
-        <div class="header item"><i class="icon code"></i>Blog Site</div>
-        <a class="item" href="/">Home</a>
-        <a class="item" href="">New Blog</a>
-    </div>
-</div>
-
-<br>
-<br>
-
-<div class="container text main segment ui">
+<div class="container text main segment ui" style="margin-top: 80px">
 <div class="ui header huge">Blog App</div>
 
     <div class="ui top attached segment">
@@ -42,10 +22,7 @@
             {% endfor %}
         </div>
     </div>
-
-
-
 </div>
 
-</body>
-</html>
+{% endblock content %}
+
