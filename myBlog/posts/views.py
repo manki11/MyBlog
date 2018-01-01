@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib import messages
 from .models import Post
 from .forms import PostForm
@@ -30,7 +31,9 @@ def post_create(request):
 
 def post_delete(request, post_id):
     post= get_object_or_404(Post, pk=post_id)
-    return render(request, 'posts/post_details.html', {'post':post})
+    post.delete()
+    messages.success(request,"Successfully Deleted")
+    return HttpResponseRedirect(reverse('posts:list'))
 
 def post_update(request, post_id):
     post= get_object_or_404(Post, pk=post_id)
