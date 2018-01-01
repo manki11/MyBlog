@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -16,4 +17,7 @@ class Post(models.Model):
 
     def summary(self):
         return self.body[:100]
+
+    def get_absolute_path(self):
+        return reverse("posts:detail",kwargs={"post_id":self.id})
 

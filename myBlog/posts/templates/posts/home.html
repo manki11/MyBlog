@@ -29,16 +29,13 @@
         <div class="ui divided items">
             {% for post in posts.all%}
             <div class="item">
-                <div class="image rounded">
-                    <img src="{{ post.image.url}}">
-                </div>
                 <div class="content">
                     <a class="header" href="">{{post.title}}</a>
                     <div class="meta">
                         <span>{{post.prettyDate}}</span>
                     </div>
                     <div class="description">
-                        <p>{{post.summary}}<a href="/posts/{{post.id}}">more..</a></p>
+                        <p>{{post.summary}}<a href={{ post.get_absolute_path }}>more..</a></p>
                     </div>
                 </div>
             </div>
