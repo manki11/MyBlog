@@ -3,4 +3,4 @@ venv/
 myBlog/media/
 *.pyc
 *.pyo
-*/__pycashe__/
+__pycache__/
