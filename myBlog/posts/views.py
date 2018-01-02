@@ -2,12 +2,18 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post
 from .forms import PostForm
 
 # Create your views here.
 def post_list(request):
-    posts= Post.objects.order_by('date')
+    posts_list= Post.objects.all()
+    paginator = Paginator(posts_list, 10)
+
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
     return render(request,'posts/home.html',{'posts':posts})
 
 def post_details(request, post_id):

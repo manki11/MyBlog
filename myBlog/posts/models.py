@@ -15,9 +15,9 @@ class Post(models.Model):
     def prettyDate(self):
         return self.date.strftime('%b %e %Y')
 
-    def summary(self):
-        return self.body[:100]
-
     def get_absolute_path(self):
         return reverse("posts:detail",kwargs={"post_id":self.id})
+
+    class Meta:
+        ordering= ["-date", "-id"]
 

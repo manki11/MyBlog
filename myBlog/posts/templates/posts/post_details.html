@@ -12,12 +12,12 @@
                     <span class="centered">Created: {{post.date}}</span>
                 </div>
                 <div class="description space">
-                    <p class="body">{{post.body}}</p>
+                    <p class="body">{{post.body| linebreaks}}</p>
                 </div>
-                <a href="" class="ui small grey basic button">UPDATE</a>
-                <form id="delete" method="post" action="">
-                    <button class="ui small red basic button">DELETE</button>
-                </form>
+                <a href='{% url "posts:update" post_id=post.id%}' class="ui small grey basic button">UPDATE</a>
+                <a href='{% url "posts:delete" post_id=post.id%}' class="ui small red basic button">DELETE</a>
+
+
             </div>
         </div>
     </div>
