@@ -16,12 +16,12 @@ def post_list(request):
 
     return render(request,'posts/home.html',{'posts':posts})
 
-def post_details(request, post_id):
-    post= get_object_or_404(Post, pk=post_id)
+def post_details(request, post_slug):
+    post= get_object_or_404(Post, slug=post_slug)
     return render(request, 'posts/post_details.html', {'post':post})
 
 def post_create(request):
-    form= PostForm(request.POST or None)
+    form= PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance= form.save(commit=False)
         instance.save()
@@ -35,15 +35,15 @@ def post_create(request):
     }
     return render(request, 'posts/post_form.html', context)
 
-def post_delete(request, post_id):
-    post= get_object_or_404(Post, pk=post_id)
+def post_delete(request, post_slug):
+    post= get_object_or_404(Post, slug=post_slug)
     post.delete()
     messages.success(request,"Successfully Deleted")
     return HttpResponseRedirect(reverse('posts:list'))
 
-def post_update(request, post_id):
-    post= get_object_or_404(Post, pk=post_id)
-    form = PostForm(request.POST or None, instance=post)
+def post_update(request, post_slug):
+    post= get_object_or_404(Post, slug=post_slug)
+    form = PostForm(request.POST or None,  request.FILES or None ,instance=post)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()

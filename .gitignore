@@ -5,3 +5,4 @@ myBlog/media/
 *.pyo
 __pycache__/
 static_cdn/
+myBlog/posts/migrations/

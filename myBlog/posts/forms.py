@@ -6,5 +6,6 @@ class PostForm(forms.ModelForm):
         model= Post
         fields=[
             "title",
+            "image",
             "body"
         ]

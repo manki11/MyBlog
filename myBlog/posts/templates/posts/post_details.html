@@ -7,15 +7,17 @@
         <div class="ui huge dividing header">{{post.title}}</div>
         <div class="ui top attached">
             <div class="item">
+                {% if post.image %}
                 <img src="{{post.image.url}}" class="ui centered rounded image space">
+                {% endif %}
                 <div class="content space">
                     <span class="centered">Created: {{post.date}}</span>
                 </div>
                 <div class="description space">
                     <p class="body">{{post.body| linebreaks}}</p>
                 </div>
-                <a href='{% url "posts:update" post_id=post.id%}' class="ui small grey basic button">UPDATE</a>
-                <a href='{% url "posts:delete" post_id=post.id%}' class="ui small red basic button">DELETE</a>
+                <a href='{% url "posts:update" post_slug=post.slug%}' class="ui small grey basic button">UPDATE</a>
+                <a href='{% url "posts:delete" post_slug=post.slug%}' class="ui small red basic button">DELETE</a>
 
 
             </div>
