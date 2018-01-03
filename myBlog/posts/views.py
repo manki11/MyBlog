@@ -1,3 +1,5 @@
+from urllib.parse import quote_plus
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -18,7 +20,8 @@ def post_list(request):
 
 def post_details(request, post_slug):
     post= get_object_or_404(Post, slug=post_slug)
-    return render(request, 'posts/post_details.html', {'post':post})
+    share_string= quote_plus(post.body)
+    return render(request, 'posts/post_details.html', {'post':post, "share_string":share_string})
 
 def post_create(request):
     form= PostForm(request.POST or None, request.FILES or None)

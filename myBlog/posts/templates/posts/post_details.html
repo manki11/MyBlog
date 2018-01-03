@@ -11,14 +11,32 @@
                 <img src="{{post.image.url}}" class="ui centered rounded image space">
                 {% endif %}
                 <div class="content space">
-                    <span class="centered">Created: {{post.date}}</span>
+                    <span class="centered">{{post.date| timesince}} ago</span>
                 </div>
                 <div class="description space">
                     <p class="body">{{post.body| linebreaks}}</p>
                 </div>
+
+
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}/">
+                    Facebook
+                </a>
+
+                <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}">
+                    Twitter
+                </a>
+
+                <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google </a>
+
+                <a href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ share_string }}">Reddit</a>
+
+                <br/>
+                <br/>
+                <br/>
+
+
                 <a href='{% url "posts:update" post_slug=post.slug%}' class="ui small grey basic button">UPDATE</a>
                 <a href='{% url "posts:delete" post_slug=post.slug%}' class="ui small red basic button">DELETE</a>
-
 
             </div>
         </div>
