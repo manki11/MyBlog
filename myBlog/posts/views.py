@@ -20,8 +20,7 @@ def post_list(request):
 
 def post_details(request, post_slug):
     post= get_object_or_404(Post, slug=post_slug)
-    share_string= quote_plus(post.body)
-    return render(request, 'posts/post_details.html', {'post':post, "share_string":share_string})
+    return render(request, 'posts/post_details.html', {'post':post})
 
 def post_create(request):
     form= PostForm(request.POST or None, request.FILES or None)

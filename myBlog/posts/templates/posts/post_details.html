@@ -1,4 +1,5 @@
 {% extends "posts/base.html" %}
+{% load urlify %}
 
 {% block content%}
 
@@ -22,13 +23,13 @@
                     Facebook
                 </a>
 
-                <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}">
+                <a href="https://twitter.com/home?status={{ post.body|truncatewords:20|urlify }}%20{{ request.build_absolute_uri }}">
                     Twitter
                 </a>
 
                 <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google </a>
 
-                <a href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ share_string }}">Reddit</a>
+                <a href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ post.body|truncatewords:20|urlify}}">Reddit</a>
 
                 <br/>
                 <br/>
