@@ -5,7 +5,13 @@
 
 <div class="ui grid container container-content">
     <div class="ui main text container segment twelve wide column centered">
-        <div class="ui huge dividing header">{{post.title}}</div>
+        <div class="ui huge header">
+            {{post.title}}
+        </div>
+        {% if post.user.get_full_name %}
+        <div class="ui small">By: {{post.user.get_full_name}}</div>
+        {%endif%}
+        <div class="ui dividing header"></div>
         <div class="ui top attached">
             <div class="item">
                 {% if post.image %}

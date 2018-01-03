@@ -2,11 +2,13 @@ from django.db import models
 from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+from django.conf import settings
 
 
 
 # Create your models here.
 class Post(models.Model):
+    user= models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=1)
     title= models.CharField(max_length=250)
     slug= models.SlugField(unique=True)
     date= models.DateTimeField(auto_now=False, auto_now_add=True)
