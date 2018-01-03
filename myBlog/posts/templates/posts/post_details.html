@@ -10,6 +10,9 @@
         </div>
         {% if post.user.get_full_name %}
         <div class="ui small">By: {{post.user.get_full_name}}</div>
+        {% if post.draft %}
+        <div class="ui small red">Draft</div>
+        {% endif %}
         {%endif%}
         <div class="ui dividing header"></div>
         <div class="ui top attached">
@@ -18,7 +21,7 @@
                 <img src="{{post.image.url}}" class="ui centered rounded image space">
                 {% endif %}
                 <div class="content space">
-                    <span class="centered">{{post.date| timesince}} ago</span>
+                    <span class="centered">{{post.publish| timesince}} ago</span>
                 </div>
                 <div class="description space">
                     <p class="body">{{post.body| linebreaks}}</p>
