@@ -24,26 +24,36 @@
                     <p class="body">{{post.body| linebreaks}}</p>
                 </div>
 
+                <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
 
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}/">
-                    Facebook
-                </a>
+                <div class="ui section divider"></div>
 
-                <a href="https://twitter.com/home?status={{ post.body|truncatewords:20|urlify }}%20{{ request.build_absolute_uri }}">
-                    Twitter
-                </a>
 
-                <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google </a>
+                <div class="ui grid">
+                    <p class="container segment three wide column">Share on:</p>
 
-                <a href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ post.body|truncatewords:20|urlify}}">Reddit</a>
+                    <a class="container segment three wide column"
+                       href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}/">
+                        Facebook
+                    </a>
 
-                <br/>
-                <br/>
-                <br/>
+                    <a class="container segment three wide column" href="https://twitter.com/home?status={{ post.body|truncatewords:20|urlify }}%20{{ request.build_absolute_uri }}">
+                        Twitter
+                    </a>
+
+                    <a class="container segment three wide column" href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google </a>
+
+                    <a class="container segment three wide column" href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ post.body|truncatewords:20|urlify}}">Reddit</a>
+
+                </div>
+
+                <div class="ui section divider"></div>
 
 
                 <a href='{% url "posts:update" post_slug=post.slug%}' class="ui small grey basic button">UPDATE</a>
                 <a href='{% url "posts:delete" post_slug=post.slug%}' class="ui small red basic button">DELETE</a>
+
+                <div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
 
             </div>
         </div>
