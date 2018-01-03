@@ -1,7 +1,7 @@
 from urllib.parse import quote_plus
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -23,6 +23,8 @@ def post_details(request, post_slug):
     return render(request, 'posts/post_details.html', {'post':post})
 
 def post_create(request):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     form= PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance= form.save(commit=False)
@@ -38,12 +40,16 @@ def post_create(request):
     return render(request, 'posts/post_form.html', context)
 
 def post_delete(request, post_slug):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     post= get_object_or_404(Post, slug=post_slug)
     post.delete()
     messages.success(request,"Successfully Deleted")
     return HttpResponseRedirect(reverse('posts:list'))
 
 def post_update(request, post_slug):
+    if not request.user.is_staff or not request.user.is_superuser:
+        raise Http404
     post= get_object_or_404(Post, slug=post_slug)
     form = PostForm(request.POST or None,  request.FILES or None ,instance=post)
     if form.is_valid():
