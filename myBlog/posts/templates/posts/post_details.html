@@ -23,8 +23,8 @@
                 <div class="content space">
                     <span class="centered">{{post.date| timesince}} ago</span>
                 </div>
-                <div class="description space content-markdown">
-                    <p class="body">{{post.body|linebreaks| safe}}</p>
+                <div class="description space">
+                    <div class="content-markdown"><p class="body">{{post.get_markdown}}</p></div>
                 </div>
 
                 <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>

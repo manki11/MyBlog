@@ -4,6 +4,8 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.conf import settings
 from django.utils import timezone
+from markdown_deux import markdown
+from django.utils.safestring import mark_safe
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
@@ -37,6 +39,11 @@ class Post(models.Model):
 
     def get_absolute_path(self):
         return reverse("posts:detail", kwargs={"post_slug": self.slug})
+
+    def get_markdown(self):
+        content= self.body
+        return mark_safe(markdown(content))
+
 
     class Meta:
         ordering = ["-date", "-id"]

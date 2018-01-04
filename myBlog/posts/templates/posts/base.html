@@ -10,6 +10,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
     <link rel="stylesheet" type="text/css" href='{% static "css/base.css" %}'>
 
+    {% block head_extra %} {% endblock head_extra %}
+
 </head>
 
 <body>
@@ -45,11 +47,17 @@
 
 <script>
     $(document).ready(function () {
-        $(".content-markdown").each(function () {
-            var content = $(this.p).text();
-            var markedContent = marked(content);
-            $(this.p).html(markedContent)
+//        $(".content-markdown").each(function () {
+//            var content = $(this).text();
+//            var markedContent = marked(content);
+//            $(this).html(markedContent)
+//            console.log(markedContent);
+//
+//
+//        })
 
+        $(".content-markdown img").each(function () {
+            $(this).addClass('ui image fluid')
         })
     })
 </script>

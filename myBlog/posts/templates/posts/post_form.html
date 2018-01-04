@@ -1,10 +1,18 @@
 {% extends "posts/base.html" %}
 
+{% block head_extra %}
+{{ form.media }}
+{% endblock head_extra %}
+
 {% block content%}
 
-<form method="post" action="" enctype="multipart/form-data">{% csrf_token%}
-    {{ form.as_p }}
-    <input type="submit" value="Submit Blog">
-</form>
+<div class="ui grid">
+    <div class="text main segment ui nine wide column centered">
+        <form class="ui form container" method="post" action="" enctype="multipart/form-data">{%csrf_token%}
+                {{ form.as_p }}
+            <input type="submit" value="Submit Blog">
+        </form>
+    </div>
+</div>
 
 {% endblock content%}
