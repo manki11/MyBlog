@@ -21,10 +21,10 @@
                 <img src="{{post.image.url}}" class="ui centered rounded image space">
                 {% endif %}
                 <div class="content space">
-                    <span class="centered">{{post.publish| timesince}} ago</span>
+                    <span class="centered">{{post.date| timesince}} ago</span>
                 </div>
-                <div class="description space">
-                    <p class="body">{{post.body| safe}}</p>
+                <div class="description space content-markdown">
+                    <p class="body">{{post.body|linebreaks| safe}}</p>
                 </div>
 
                 <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>

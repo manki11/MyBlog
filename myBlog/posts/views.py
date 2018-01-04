@@ -35,7 +35,7 @@ def post_list(request):
 
 def post_details(request, post_slug):
     post = get_object_or_404(Post, slug=post_slug)
-    if post.draft or post.publish > timezone.now().date():
+    if post.draft or post.date > timezone.now():
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
     return render(request, 'posts/post_details.html', {'post': post})
