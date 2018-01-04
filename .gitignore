@@ -6,3 +6,4 @@ myBlog/media/
 __pycache__/
 static_cdn/
 myBlog/posts/migrations/
+myBlog/static_cdn/

@@ -24,7 +24,7 @@
                     <span class="centered">{{post.publish| timesince}} ago</span>
                 </div>
                 <div class="description space">
-                    <p class="body">{{post.body| linebreaks}}</p>
+                    <p class="body">{{post.body| safe}}</p>
                 </div>
 
                 <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
