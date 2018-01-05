@@ -1,0 +1,15 @@
+#red{
+    color: red;
+}
+
+#title{
+    color: black;
+    font-family: sans-serif;
+    font-weight: 200;
+    font-size: 25px;
+}
+
+#title:hover{
+    color: grey;
+}
+

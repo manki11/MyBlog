@@ -8,9 +8,11 @@
 
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
-    <link rel="stylesheet" type="text/css" href='{% static "css/base.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/css/base.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "/css/home.css" %}'>
 
     {% block head_extra %} {% endblock head_extra %}
+
 
 </head>
 
@@ -24,6 +26,7 @@
     js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=2069253990027451';
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="ui fixed inverted menu ">
     <div class="ui container">
         <div class="header item"><i class="icon code"></i>Blog Site</div>

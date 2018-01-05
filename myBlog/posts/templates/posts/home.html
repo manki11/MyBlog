@@ -1,4 +1,6 @@
 {% extends "posts/base.html" %}
+{% load staticfiles %}
+
 
 {% block content%}
 
@@ -15,18 +17,23 @@
             {% for post in posts %}
             <div class="item">
                 <div class="content">
-                    <a class="header" href="">{{post.title}}</a>
+                    <a class="header list-title" id="title" href="{{ post.get_absolute_path }}">{{post.title}}</a>
+                    {% if post.id|divisibleby:2 %}
+                        <img src="{{post.image.url}}" class="ui centered rounded image space">
+                    {% endif %}
                     <div class="meta">
                         <span>{{post.date| timesince}} ago</span>
                     </div>
                     <div class="description container-content content-markdown">
-                        <p>{{post.get_markdown}}<a href={{ post.get_absolute_path }}>more..</a></p>
+                        <p>{{post.get_markdown|truncatewords_html:50}}
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
+
+    <div class="ui section divider"></div>
 
     <div class="pagination">
     <span class="step-links">
@@ -44,6 +51,9 @@
     </span>
     </div>
 </div>
+
+<br/>
+<br/>
 
 
 {% endblock content %}
