@@ -50,18 +50,38 @@
 
 <script>
     $(document).ready(function () {
-//        $(".content-markdown").each(function () {
-//            var content = $(this).text();
-//            var markedContent = marked(content);
-//            $(this).html(markedContent)
-//            console.log(markedContent);
-//
-//
-//        })
 
         $(".content-markdown img").each(function () {
             $(this).addClass('ui image fluid')
         })
+
+        var title = $("#id_title");
+        var body = $("#id_body");
+
+        setTitle()
+        setContent()
+
+        function setTitle() {
+            $("#preview_title").text(title.val());
+        }
+
+
+        function setContent() {
+            $("#preview_body").html(marked(body.val()));
+            $("#preview_body img").each(function () {
+                $(this).addClass('ui image fluid')
+            })
+        }
+
+        body.keyup(function () {
+            setContent()
+        })
+
+        title.keyup(function () {
+            setTitle()
+        })
+
+
     })
 </script>
 

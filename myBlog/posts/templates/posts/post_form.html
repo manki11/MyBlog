@@ -6,12 +6,35 @@
 
 {% block content%}
 
-<div class="ui grid">
-    <div class="text main segment ui nine wide column centered">
+<div class="ui grid centered">
+    <div class="text main ui eight wide column">
+        <div class="ui header">Blog Form:</div>
         <form class="ui form container" method="post" action="" enctype="multipart/form-data">{%csrf_token%}
-                {{ form.as_p }}
+            {{ form.as_p }}
             <input type="submit" value="Submit Blog">
         </form>
+    </div>
+    <div class="text main ui seven wide column form-div">
+        <div class="ui header">Blog Preview:</div>
+        <div class="ui grid container container-content">
+            <div class="ui main text container segment fifteen wide column centered">
+                <div class="ui huge header" id="preview_title"></div>
+                <!--{% if post.user.get_full_name %}-->
+                <!--<div class="ui small">By: {{post.user.get_full_name}}</div>-->
+                <!--{% if post.draft %}-->
+                <!--<div class="ui small red">Draft</div>-->
+                <!--{% endif %}-->
+                <!--{%endif%}-->
+                <div class="ui dividing header"></div>
+                <div class="ui top attached">
+                    <div class="item">
+                        <div class="description space">
+                            <div class="content-markdown"><p class="body" id="preview_body"></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
