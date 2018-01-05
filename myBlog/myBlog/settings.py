@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts',
     'pagedown',
-    'markdown_deux'
+    'markdown_deux',
+    'crispy_forms'
 ]
+
+CRISPY_TEMPLATE_PACK = 'semantic-ui'
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
