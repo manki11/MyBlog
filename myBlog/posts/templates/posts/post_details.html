@@ -27,7 +27,8 @@
                     <div class="content-markdown"><p class="body">{{post.get_markdown}}</p></div>
                 </div>
 
-                <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+                <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count"
+                     data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
 
                 <div class="ui section divider"></div>
 
@@ -40,13 +41,16 @@
                         Facebook
                     </a>
 
-                    <a class="container segment three wide column" href="https://twitter.com/home?status={{ post.body|truncatewords:20|urlify }}%20{{ request.build_absolute_uri }}">
+                    <a class="container segment three wide column"
+                       href="https://twitter.com/home?status={{ post.body|truncatewords:20|urlify }}%20{{ request.build_absolute_uri }}">
                         Twitter
                     </a>
 
-                    <a class="container segment three wide column" href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google </a>
+                    <a class="container segment three wide column"
+                       href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google </a>
 
-                    <a class="container segment three wide column" href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ post.body|truncatewords:20|urlify}}">Reddit</a>
+                    <a class="container segment three wide column"
+                       href="http://www.reddit.com/submit?{{ request.build_absolute_uri }}/&title={{ post.body|truncatewords:20|urlify}}">Reddit</a>
 
                 </div>
 
@@ -56,8 +60,52 @@
                 <a href='{% url "posts:update" post_slug=post.slug%}' class="ui small grey basic button">UPDATE</a>
                 <a href='{% url "posts:delete" post_slug=post.slug%}' class="ui small red basic button">DELETE</a>
 
-                <div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
+                <div class="ui comments">
+                    <h3 class="ui dividing header">Comments</h3>
 
+                    {% for comment in post.comments.all %}
+                    <!--main comment-->
+                    <div class="comment comment-indent">
+                        <div class="content">
+                            <a class="author">{{ comment.user.get_full_name }}</a>
+                            <div class="metadata">
+                                <span class="date">{{ comment.timestamp| timesince}}</span>
+                            </div>
+                            <div class="text">
+                                <p>{{ comment.content }}</p>
+                            </div>
+                            <div class="actions">
+                                <a class="reply">Reply</a>
+                            </div>
+                        </div>
+                        <!--reply comment-->
+                        <!--<div class="comments comment-indent">-->
+                            <!--<div class="comment">-->
+                                <!--<div class="content">-->
+                                    <!--<a class="author">Jenny Hess</a>-->
+                                    <!--<div class="metadata">-->
+                                        <!--<span class="date">Just now</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="text">-->
+                                        <!--Elliot you are always so right :)-->
+                                    <!--</div>-->
+                                    <!--<div class="actions">-->
+                                        <!--<a class="reply">Reply</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    {% endfor %}
+                    <form class="ui reply form">
+                        <div class="field">
+                            <textarea></textarea>
+                        </div>
+                        <div class="ui blue labeled submit icon button">
+                            <i class="icon edit"></i> Add Reply
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

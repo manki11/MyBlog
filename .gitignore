@@ -8,3 +8,4 @@ static_cdn/
 myBlog/posts/migrations/
 myBlog/static_cdn/
 myBlog/posts/templates/semantic-ui/
+myBlog/comments/migrations/

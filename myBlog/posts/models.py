@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.conf import settings
+from comments.models import Comment
 from django.utils import timezone
 from markdown_deux import markdown
 from django.utils.safestring import mark_safe
@@ -47,6 +48,11 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-date", "-id"]
+
+    @property
+    def comments(self):
+        qs = Comment.objects.filter_by_instance(self)
+        return qs
 
 
 def create_slug(instance, new_slug=None):

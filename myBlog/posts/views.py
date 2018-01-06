@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from .models import Post
 from .forms import PostForm
 
@@ -38,6 +38,7 @@ def post_details(request, post_slug):
     if post.draft or post.date > timezone.now():
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
+
     return render(request, 'posts/post_details.html', {'post': post})
 
 
