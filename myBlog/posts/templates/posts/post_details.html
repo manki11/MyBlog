@@ -1,5 +1,7 @@
 {% extends "posts/base.html" %}
 {% load urlify %}
+{% load crispy_forms_tags %}
+
 
 {% block content%}
 
@@ -78,32 +80,31 @@
                                 <a class="reply">Reply</a>
                             </div>
                         </div>
-                        <!--reply comment-->
-                        <!--<div class="comments comment-indent">-->
-                            <!--<div class="comment">-->
-                                <!--<div class="content">-->
-                                    <!--<a class="author">Jenny Hess</a>-->
-                                    <!--<div class="metadata">-->
-                                        <!--<span class="date">Just now</span>-->
-                                    <!--</div>-->
-                                    <!--<div class="text">-->
-                                        <!--Elliot you are always so right :)-->
-                                    <!--</div>-->
-                                    <!--<div class="actions">-->
-                                        <!--<a class="reply">Reply</a>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                        {% for child_comment in comment.children %}
+                        <div class="comments comment-indent">
+                            <div class="comment">
+                                <div class="content">
+                                    <a class="author">{{ child_comment.user.get_full_name }}</a>
+                                    <div class="metadata">
+                                        <span class="date">{{ child_comment.timestamp| timesince}}</span>
+                                    </div>
+                                    <div class="text">
+                                        {{ child_comment.content }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <form action="." method="post" class="ui reply form">{%csrf_token%}
+                            {{ comment_form | crispy}}
+                            <input type="hidden" name="parent_id" value="{{ comment.id}}">
+                            <input class="ui blue mini labelled submit button" type="submit" value="Reply">
+                        </form>
                     </div>
                     {% endfor %}
-                    <form class="ui reply form">
-                        <div class="field">
-                            <textarea></textarea>
-                        </div>
-                        <div class="ui blue labeled submit icon button">
-                            <i class="icon edit"></i> Add Reply
-                        </div>
+                    <form action="." method="post" class="ui reply form">{%csrf_token%}
+                        {{ comment_form | crispy}}
+                        <input class="ui blue small labelled submit button" type="submit" value="Comment">
                     </form>
                 </div>
             </div>

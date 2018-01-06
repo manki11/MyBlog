@@ -3,10 +3,12 @@ from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.conf import settings
-from comments.models import Comment
+from django.contrib.contenttypes.models import ContentType
+from django.utils.safestring import mark_safe
 from django.utils import timezone
 from markdown_deux import markdown
-from django.utils.safestring import mark_safe
+from comments.models import Comment
+
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
@@ -53,6 +55,11 @@ class Post(models.Model):
     def comments(self):
         qs = Comment.objects.filter_by_instance(self)
         return qs
+
+    @property
+    def get_content_type(self):
+        content_type = ContentType.objects.get_for_model(self.__class__)
+        return content_type
 
 
 def create_slug(instance, new_slug=None):
