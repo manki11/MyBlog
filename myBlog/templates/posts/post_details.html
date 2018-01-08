@@ -16,6 +16,7 @@
         <div class="ui small red">Draft</div>
         {% endif %}
         {%endif%}
+        <div class="ui small"><i>Read Time:{%if post.read_time <= 1%} less than 1 minute {% elif post.read_time  <= 10 %} between 2 - 10 Minutes {% else %} {{ post.read_time }} Minutes {% endif %}</i></div>
         <div class="ui dividing header"></div>
         <div class="ui top attached">
             <div class="item">
