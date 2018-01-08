@@ -78,7 +78,8 @@
                             </div>
                         </div>
                         {% if comment.children.count > 0%}
-                        <a class="actions">{{ comment.children.count }} Replies | </a>
+                        <span class="actions">{{ comment.children.count }} Replies | </span>
+                        <a class="actions" href="{{ comment.get_absolute_path }}"> Thread | </a>
                         {% endif %}
                         <a class="comment-reply-btn actions">Reply</a>
                         <!--reply-->
@@ -98,7 +99,7 @@
                                 </div>
                             </div>
                             {% endfor %}
-                            <form action="." method="post" class="ui reply form">{%csrf_token%}
+                            <form action="" method="post" class="ui reply form">{%csrf_token%}
                                 {{ comment_form | crispy}}
                                 <input type="hidden" name="parent_id" value="{{ comment.id}}">
                                 <input class="ui blue mini labelled submit button" type="submit" value="Reply">
@@ -106,7 +107,7 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <form action="." method="post" class="ui reply form">{%csrf_token%}
+                    <form action="" method="post" class="ui reply form">{%csrf_token%}
                         {{ comment_form | crispy}}
                         <input class="ui blue small labelled submit button" type="submit" value="Comment">
                     </form>

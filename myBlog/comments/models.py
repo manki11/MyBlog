@@ -4,6 +4,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 # Create your models here.
+from django.urls import reverse
+
 
 class CommentManager(models.Manager):
     def filter_by_instance(self, instance):
@@ -28,6 +30,8 @@ class Comment(models.Model):
     class Meta:
         ordering=['-timestamp']
 
+    def get_absolute_path(self):
+        return reverse("comments:thread", kwargs={"id": self.id})
 
     def __unicode__(self):
         return str(self.user.username)

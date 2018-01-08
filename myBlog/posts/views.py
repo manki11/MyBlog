@@ -50,11 +50,15 @@ def post_details(request, post_slug):
     comment_form= CommentForm(request.POST or None, initial=initial_data)
     if comment_form.is_valid():
         content_type= ContentType.objects.get_for_model(post)
+        print(content_type)
         obj_id= comment_form.cleaned_data.get("object_id")
+        print(obj_id)
         content_data= comment_form.cleaned_data.get("content")
+        print(content_data)
         parent_obj= None
         try:
             parent_id= int(request.POST.get("parent_id"))
+            print(parent_id)
         except:
             parent_id= None
 
@@ -70,6 +74,8 @@ def post_details(request, post_slug):
             parent=parent_obj,
             content= content_data
         )
+
+        print(new_comment)
         return HttpResponseRedirect(post.get_absolute_path())
 
     return render(request, 'posts/post_details.html', {'post': post,'comment_form': comment_form})

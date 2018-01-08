@@ -1,0 +1,57 @@
+{% extends "posts/base.html" %}
+{% load urlify %}
+{% load crispy_forms_tags %}
+
+
+{% block content%}
+
+<div class="ui grid container container-content">
+    <div class="ui main text container segment fourteen wide column centered">
+
+        <div class="ui comments">
+            <h3 class="ui dividing header">Comments</h3>
+
+            <!--main comment-->
+            <div class="comment comment-indent">
+                <div class="content">
+                    <a class="author">{{ comment.user.get_full_name }}</a>
+                    <div class="metadata">
+                        <span class="date">{{ comment.timestamp| timesince}}</span>
+                    </div>
+                    <div class="text">
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </div>
+                {% if comment.children.count > 0%}
+                <a class="actions">{{ comment.children.count }} Replies | </a>
+                {% endif %}
+
+                <!--reply-->
+                <div>
+                    {% for child_comment in comment.children %}
+                    <div class="comments comment-indent">
+                        <div class="comment">
+                            <div class="content">
+                                <a class="author">{{ child_comment.user.get_full_name }}</a>
+                                <div class="metadata">
+                                    <span class="date">{{ child_comment.timestamp| timesince}}</span>
+                                </div>
+                                <div class="text">
+                                    {{ child_comment.content }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <form action="" method="post" class="ui reply form">{%csrf_token%}
+                        {{ form | crispy}}
+                        <input type="hidden" name="parent_id" value="{{ comment.id}}">
+                        <input class="ui blue small labelled submit button" type="submit" value="Reply">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}
