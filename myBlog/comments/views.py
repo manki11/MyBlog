@@ -4,17 +4,41 @@ from django.urls import reverse
 from .models import Comment
 from .forms import CommentForm
 from posts.models import Post
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 
 
 # Create your views here.
 
+def comment_delete(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    if comment.user != request.user:
+        # messages.success(request, "Successfully Deleted Comment")
+        response= HttpResponse("You do not have permission to delete this comment")
+        response.status_code= 403
+        return response
+
+    parent_object_url= comment.content_object.get_absolute_path()
+    try:
+        comment.delete()
+    except:
+        print("Something went wrong")
+    messages.success(request, "Successfully Deleted Comment")
+    return HttpResponseRedirect(parent_object_url)
+
 def comment_thread(request, id):
-    obj= get_object_or_404(Comment, id=id)
-    # content_type= obj.content_object
-    # content_id= obj.content_object.id
+    # obj= get_object_or_404(Comment, id=id)
+
+    try:
+        obj= Comment.objects.get(id=id)
+        print(obj.is_parent())
+    except:
+        raise Http404
+
+    if not obj.is_parent():
+        obj= obj.parent
 
     initial_data = {
         'content_type': obj.content_type,

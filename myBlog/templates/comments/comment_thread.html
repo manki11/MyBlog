@@ -23,7 +23,10 @@
                     </div>
                 </div>
                 {% if comment.children.count > 0%}
-                <a class="actions">{{ comment.children.count }} Replies | </a>
+                <a class="actions">{{ comment.children.count }} Replies </a>
+                {% endif %}
+                {% if request.user == comment.user %}
+                <a class="actions" href="{{ comment.get_delete_path }}">| Delete</a>
                 {% endif %}
 
                 <!--reply-->
@@ -39,6 +42,9 @@
                                 <div class="text">
                                     {{ child_comment.content }}
                                 </div>
+                                {% if request.user == child_comment.user %}
+                                <a class="actions" href="{{ child_comment.get_delete_path }}">Delete</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
