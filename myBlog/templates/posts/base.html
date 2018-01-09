@@ -32,6 +32,14 @@
         <div class="header item"><i class="icon code"></i>Blog Site</div>
         <a class="item" href="/posts">Home</a>
         <a class="item" href="/posts/create">New Blog</a>
+        <div class="right menu">
+            {% if request.user is None %}
+            <a class="item" href="/login">Login</a>
+            <a class="item" href="/register">Register</a>
+            {% else %}
+            <a class="item" href="/logout">Logout</a>
+            {% endif %}
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,16 @@
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+
+<div class="ui grid centered">
+    <div class="text main ui seven wide column">
+        <div class="ui header centered">{{ tittle }}</div>
+        <form class="ui form container" method="post" action="" enctype="multipart/form-data">{%csrf_token%}
+            {{ form| crispy }}
+            <input type="submit" value="{{ tittle }}">
+        </form>
+    </div>
+</div>
+
+{% endblock content%}
