@@ -1,7 +1,7 @@
 from urllib.parse import quote_plus
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from comments.forms import CommentForm
 from comments.models import Comment
+from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from .models import Post
 from .forms import PostForm
@@ -35,7 +36,6 @@ def post_list(request):
 
     return render(request, 'posts/home.html', {'posts': posts})
 
-
 def post_details(request, post_slug):
     post = get_object_or_404(Post, slug=post_slug)
     if post.draft or post.date > timezone.now():
@@ -48,7 +48,7 @@ def post_details(request, post_slug):
     }
 
     comment_form= CommentForm(request.POST or None, initial=initial_data)
-    if comment_form.is_valid():
+    if comment_form.is_valid() and request.user.is_authenticated():
         content_type= ContentType.objects.get_for_model(post)
         print(content_type)
         obj_id= comment_form.cleaned_data.get("object_id")
@@ -80,12 +80,8 @@ def post_details(request, post_slug):
 
     return render(request, 'posts/post_details.html', {'post': post,'comment_form': comment_form})
 
-
+@login_required(login_url='/login/')
 def post_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
-    if not request.user.is_authenticated:
-        raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -101,20 +97,24 @@ def post_create(request):
     }
     return render(request, 'posts/post_form.html', context)
 
-
+@login_required(login_url='/login/')
 def post_delete(request, post_slug):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
     post = get_object_or_404(Post, slug=post_slug)
+    if not request.user == post.user:
+        response = HttpResponse("You do not have permission to delete this post")
+        response.status_code = 403
+        return response
     post.delete()
     messages.success(request, "Successfully Deleted")
     return HttpResponseRedirect(reverse('posts:list'))
 
-
+@login_required(login_url='/login/')
 def post_update(request, post_slug):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
     post = get_object_or_404(Post, slug=post_slug)
+    if not request.user == post.user:
+        response = HttpResponse("You do not have permission to update this post")
+        response.status_code = 403
+        return response
     form = PostForm(request.POST or None, request.FILES or None, instance=post)
     if form.is_valid():
         instance = form.save(commit=False)

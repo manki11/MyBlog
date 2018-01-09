@@ -49,11 +49,18 @@
                         </div>
                     </div>
                     {% endfor %}
+                    {% if request.user.is_authenticated %}
                     <form action="" method="post" class="ui reply form">{%csrf_token%}
                         {{ form | crispy}}
                         <input type="hidden" name="parent_id" value="{{ comment.id}}">
                         <input class="ui blue small labelled submit button" type="submit" value="Reply">
                     </form>
+                    {% else %}
+                    <div class="ui section divider"></div>
+                    <div class="ui content">
+                        <p><a href="/login/">Please login to Comment</a></p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

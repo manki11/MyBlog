@@ -30,13 +30,17 @@
 <div class="ui fixed inverted menu ">
     <div class="ui container">
         <div class="header item"><i class="icon code"></i>Blog Site</div>
-        <a class="item" href="/posts">Home</a>
-        <a class="item" href="/posts/create">New Blog</a>
+        <a class="item" href="/">Home</a>
+        <a class="item" href="/create">New Blog</a>
         <div class="right menu">
-            {% if request.user is None %}
+            {% if not request.user.is_authenticated %}
             <a class="item" href="/login">Login</a>
             <a class="item" href="/register">Register</a>
             {% else %}
+            <span class="item">
+                {% if request.user.get_full_name %}
+                {{request.user.get_full_name}}
+                {% endif %}</span>
             <a class="item" href="/logout">Logout</a>
             {% endif %}
         </div>

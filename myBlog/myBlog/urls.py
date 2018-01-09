@@ -20,18 +20,17 @@ from django.conf import settings
 
 from accounts.views import (login_view, register_view, logout_view)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('comments/', include('comments.urls', namespace='comments')),
-    path('posts/', include('posts.urls', namespace='posts')),
     # Auth
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
+    path('', include('posts.urls', namespace='posts'))
 
 ]
 
 if settings.DEBUG:
-    urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

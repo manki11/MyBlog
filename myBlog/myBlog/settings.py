@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms'
 ]
 
+LOGIN_URL='/login/'
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 

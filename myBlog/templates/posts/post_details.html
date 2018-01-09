@@ -16,7 +16,8 @@
         <div class="ui small red">Draft</div>
         {% endif %}
         {%endif%}
-        <div class="ui small"><i>Read Time:{%if post.read_time <= 1%} less than 1 minute {% elif post.read_time  <= 10 %} between 2 - 10 Minutes {% else %} {{ post.read_time }} Minutes {% endif %}</i></div>
+        <div class="ui small"><i>Read Time:{%if post.read_time <= 1%} less than 1 minute {% elif post.read_time <= 10 %}
+            between 2 - 10 Minutes {% else %} {{ post.read_time }} Minutes {% endif %}</i></div>
         <div class="ui dividing header"></div>
         <div class="ui top attached">
             <div class="item">
@@ -59,9 +60,10 @@
 
                 <div class="ui section divider"></div>
 
-
+                {% if request.user == post.user %}
                 <a href='{% url "posts:update" post_slug=post.slug%}' class="ui small grey basic button">UPDATE</a>
                 <a href='{% url "posts:delete" post_slug=post.slug%}' class="ui small red basic button">DELETE</a>
+                {% endif %}
 
                 <div class="ui comments">
                     <h3 class="ui dividing header">Comments</h3>
@@ -100,18 +102,29 @@
                                 </div>
                             </div>
                             {% endfor %}
+                            {% if request.user.is_authenticated %}
                             <form action="" method="post" class="ui reply form">{%csrf_token%}
                                 {{ comment_form | crispy}}
                                 <input type="hidden" name="parent_id" value="{{ comment.id}}">
                                 <input class="ui blue mini labelled submit button" type="submit" value="Reply">
                             </form>
+                            {% else %}
+                            <p><a href="/login/">Please login to Reply</a></p>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
+                    {% if request.user.is_authenticated %}
                     <form action="" method="post" class="ui reply form">{%csrf_token%}
                         {{ comment_form | crispy}}
                         <input class="ui blue small labelled submit button" type="submit" value="Comment">
                     </form>
+                    {% else %}
+                    <div class="ui section divider"></div>
+                    <div class="ui content">
+                        <p><a href="/login/">Please login to Comment</a></p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
