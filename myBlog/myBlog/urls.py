@@ -27,7 +27,8 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
-    path('', include('posts.urls', namespace='posts'))
+    path('', include('posts.urls', namespace='posts')),
+    path('api/posts', include('posts.api.urls', namespace='posts-api'))
 
 ]
 

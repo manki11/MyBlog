@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'posts',
     'pagedown',
     'markdown_deux',
-    'crispy_forms'
+    'crispy_forms',
+    'rest_framework'
 ]
 
 LOGIN_URL='/login/'
