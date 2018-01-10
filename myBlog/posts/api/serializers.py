@@ -1,7 +1,7 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from posts.models import Post
 
-class PostListSerializer(ModelSerializer):
+class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model= Post
         fields=[
@@ -12,7 +12,17 @@ class PostListSerializer(ModelSerializer):
             'date'
         ]
 
-class PostDetailSerializer(ModelSerializer):
+class PostCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Post
+        fields=[
+            'title',
+            'body',
+            'publish'
+        ]
+
+class PostDetailSerializer(serializers.ModelSerializer):
+    # comments = serializers.BooleanField(source='comments')
     class Meta:
         model= Post
         fields=[
@@ -24,7 +34,7 @@ class PostDetailSerializer(ModelSerializer):
             'date',
             'user',
             'draft',
-            'publish',
-            'read_time'
+            'read_time',
+            # 'comments'
         ]
         depth = 1
