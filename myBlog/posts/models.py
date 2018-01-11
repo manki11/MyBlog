@@ -45,6 +45,9 @@ class Post(models.Model):
     def get_absolute_path(self):
         return reverse("posts:detail", kwargs={"post_slug": self.slug})
 
+    def get_api_path(self):
+        return reverse("posts-api:detail", kwargs={"pk": self.id})
+
     def get_markdown(self):
         content= self.body
         return mark_safe(markdown(content))
