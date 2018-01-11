@@ -14,7 +14,7 @@ from rest_framework.permissions import (
 )
 
 from comments.models import Comment
-from .serializers import CommentSerializer
+from .serializers import CommentDetailSerializer
 
 from posts.api.permissions import isOwnerorReadOnly
 
@@ -61,4 +61,4 @@ from posts.api.permissions import isOwnerorReadOnly
 
 class CommentDetailAPIView(RetrieveAPIView):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+    serializer_class = CommentDetailSerializer
