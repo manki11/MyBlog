@@ -28,7 +28,8 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
     path('', include('posts.urls', namespace='posts')),
-    path('api/posts/', include('posts.api.urls', namespace='posts-api'))
+    path('api/posts/', include('posts.api.urls', namespace='posts-api')),
+    path('api/comments/', include('comments.api.urls', namespace='comments-api'))
 
 ]
 

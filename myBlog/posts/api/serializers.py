@@ -2,14 +2,17 @@ from rest_framework import serializers
 from posts.models import Post
 
 class PostListSerializer(serializers.ModelSerializer):
+    url= serializers.HyperlinkedIdentityField(
+        view_name='posts-api:detail',
+    )
     class Meta:
         model= Post
         fields=[
             'id',
             'title',
-            'slug',
             'body',
-            'date'
+            'date',
+            'url'
         ]
 
 class PostCreateUpdateSerializer(serializers.ModelSerializer):
@@ -22,7 +25,8 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
         ]
 
 class PostDetailSerializer(serializers.ModelSerializer):
-    # comments = serializers.BooleanField(source='comments')
+    html= serializers.SerializerMethodField()
+
     class Meta:
         model= Post
         fields=[
@@ -30,7 +34,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
             'title',
             'slug',
             'image',
-            'body',
+            'html',
             'date',
             'user',
             'draft',
@@ -38,3 +42,6 @@ class PostDetailSerializer(serializers.ModelSerializer):
             # 'comments'
         ]
         depth = 1
+
+    def get_html(self, obj):
+        return obj.get_markdown()
