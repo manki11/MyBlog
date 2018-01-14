@@ -19,6 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from accounts.views import (login_view, register_view, logout_view)
+from rest_framework.authtoken import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +31,9 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path('', include('posts.urls', namespace='posts')),
     path('api/posts/', include('posts.api.urls', namespace='posts-api')),
-    path('api/comments/', include('comments.api.urls', namespace='comments-api'))
+    path('api/comments/', include('comments.api.urls', namespace='comments-api')),
+    path('api/users/', include('accounts.api.urls', namespace='accounts-api')),
+    path(r'^api-token-auth/', views.obtain_auth_token)
 
 ]
 

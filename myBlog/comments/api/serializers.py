@@ -63,8 +63,8 @@ def comment_create_serializer(model_type='post', id=None, parent_id=None, user=N
 
 class CommentDetailSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()
-    user = serializers.SerializerMethodField()
-    content_obj_url= serializers.SerializerMethodField()
+    user = UserSerializer(read_only=True)
+    content_obj_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
@@ -78,7 +78,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
             'replies'
         ]
         depth = 1
-        read_only_fields=[
+        read_only_fields = [
             'id',
             'user',
             'parent',
@@ -93,11 +93,9 @@ class CommentDetailSerializer(serializers.ModelSerializer):
     def get_content_obj_url(self, obj):
         return obj.content_object.get_api_path()
 
-    def get_user(self, obj):
-        return UserSerializer(obj.user).data
 
 class CommentChildSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
+    user = user = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
@@ -109,5 +107,3 @@ class CommentChildSerializer(serializers.ModelSerializer):
         ]
         depth = 1
 
-    def get_user(self, obj):
-        return UserSerializer(obj.user).data
